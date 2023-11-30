@@ -1,0 +1,23 @@
+    Ranked Solo/Duo Queue (file classée solo/duo)
+        Valeur de l'attribut "queue": 420
+
+    Ranked Flex Queue (file classée flexible)
+        Valeur de l'attribut "queue": 440
+
+    ARAM (All Random All Mid)
+        Valeur de l'attribut "queue": 450
+
+    Normal Draft
+        Valeur de l'attribut "queue": 430
+
+    Blind Pick
+        Valeur de l'attribut "queue": 400
+
+    TFT (Teamfight Tactics)
+        Valeur de l'attribut "queue": 1090
+
+    TFT Ranked
+        Valeur de l'attribut "queue": 1100
+
+    One for All
+        Valeur de l'attribut "queue": 1020
