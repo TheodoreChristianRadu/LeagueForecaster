@@ -1,9 +1,9 @@
 import csv
 import json
 import os
+from time import sleep
 import requests
 from urllib.parse import quote
-import pandas
 
 key = os.getenv('key')
 
@@ -30,8 +30,9 @@ with open(chemin_fichier_csv, mode='w', newline='') as fichier_csv:
         if i in hightier:
             v+=1
             print(v)
-            for k in range(5):
-                url1 = f"https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/{i}/{"I"}?page=1&api_key={key}"
+            for k in range(1,6):
+                sleep(3)
+                url1 = f"https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/{i}/{"I"}?page={k}&api_key={key}"
 
                 response = requests.get(url1)
                 
@@ -47,8 +48,9 @@ with open(chemin_fichier_csv, mode='w', newline='') as fichier_csv:
             for j in division:
                 v+=1
                 print(v)
-                for k in range(5):
-                    url1 = f"https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/{i}/{j}?page=1&api_key={key}"
+                for k in range(1,6):
+                    sleep(3)
+                    url1 = f"https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/{i}/{j}?page={k}&api_key={key}"
                     response = requests.get(url1)
                 
                     # Vérifiez si la requête a réussi (code d'état 200)
