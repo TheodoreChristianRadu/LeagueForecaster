@@ -5,9 +5,7 @@ import requests
 from urllib.parse import quote
 from time import sleep
 
-#key = os.getenv('key')
-key = f"RGAPI-e5c4e2fc-d0ae-47d0-bfd8-c57250fc3f13"
-
+key = os.getenv('key')
 
 def get_match(matchId, max_retries=3, retry_delay=5):
     
