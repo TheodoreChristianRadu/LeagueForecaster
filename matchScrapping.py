@@ -37,40 +37,45 @@ def read_existing_log(log_file):
 def process_csv(input_file, output_file, log_file, progress_interval=5):
     used_historic = read_existing_log(log_file)
 
-    with open(input_file, 'r') as csv_file:
-        reader = csv.reader(csv_file)
-        for i, row in enumerate(reader, 1):
-            matchHistoricList = row
+    with open(output_file, 'a') as fichier_json:
 
-            # Vérifiez si le summoner a déjà été traité
-            if ''.join(matchHistoricList) in used_historic:
-                print(f"Déjà été traité.")
-                continue
-            
-            matchList =[]
-            for id in matchHistoricList:
-                if id != '':
-                    sleep_time = 0.5
-                    sleep(sleep_time)
-                    match = get_match(id) #a corriger
-                    if match:
-                        matchList.append(json.dumps(match))
+        if used_historic == set():
+            fichier_json.write('[\n')
 
-            # Enregistrez le progrès dans le fichier de journalisation
-            with open(log_file, 'a') as log:
-                log.write(f" Traitement réussi pour {''.join(matchHistoricList)}\n")
+        with open(input_file, 'r') as csv_file:
+            reader = csv.reader(csv_file)
+            for i, row in enumerate(reader, 1):
+                matchHistoricList = row
 
-            # Affichez le progrès tous les progress_interval summoners
-            if i % progress_interval == 0:
-                print(f"\nTraitement réussi pour {i} summoners.\n")
+                # Vérifiez si le summoner a déjà été traité
+                if ''.join(matchHistoricList) in used_historic:
+                    print(f"Déjà été traité.")
+                    continue
+                
+                matchList =[]
+                for id in matchHistoricList:
+                    if id != '':
+                        sleep_time = 0.5
+                        sleep(sleep_time)
+                        match = get_match(id) #a corriger
+                        if match:
+                            matchList.append(match)
 
-            with open(output_file, 'w') as fichier_json:
+                # Enregistrez le progrès dans le fichier de journalisation
+                with open(log_file, 'a') as log:
+                    log.write(f" Traitement réussi pour {''.join(matchHistoricList)}\n")
+
+                # Affichez le progrès tous les progress_interval summoners
+                if i % progress_interval == 0:
+                    print(f"\nTraitement réussi pour {i} summoners.\n")
+                
+                if i != 1:
+                    fichier_json.write(',\n')
                 # Utilisation de json.dump pour écrire chaque ligne dans le fichier
-                json.dump(matchList, fichier_json)
-                fichier_json.write('\n')
+                json.dump(matchList, fichier_json, indent=4)
 
-
-    print("Toutes les requêtes ont été traitées avec succès.")
+        fichier_json.write('\n]')
+        print("Toutes les requêtes ont été traitées avec succès.")
 
 if __name__ == "__main__":
     input_csv_path = 'historicList1.csv'
