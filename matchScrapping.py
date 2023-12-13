@@ -6,6 +6,7 @@ from urllib.parse import quote
 from time import sleep
 
 key = os.getenv('key')
+key = f"RGAPI-e5c4e2fc-d0ae-47d0-bfd8-c57250fc3f13"
 
 def get_match(matchId, max_retries=3, retry_delay=5):
     
@@ -15,7 +16,11 @@ def get_match(matchId, max_retries=3, retry_delay=5):
         try:
             response = requests.get(url)
             response.raise_for_status()  # Gérer les erreurs HTTP
-            return response.json()
+            unfilteredMatch= response.json()['info']
+            blacklist=["puuid","riotIdGameName","riotIdTagline","summonerId","summonerName"]
+            filteredMatch = {key: value for key, value in unfilteredMatch.items() if key in ['gameDuration', 'participants']}
+            filteredMatch['participants'] = [{key: value for key, value in participant.items() if key not in blacklist} for participant in filteredMatch['participants']]
+            return filteredMatch
         except requests.RequestException as e:
             print(f"Erreur lors de la requête pour {matchId}: {e}")
             print(f"Tentative {attempt + 1}/{max_retries}. Réessai dans {retry_delay} secondes.")
