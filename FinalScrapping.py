@@ -3,8 +3,7 @@ import requests
 from urllib.parse import quote
 from time import sleep
 
-#key = os.getenv('key')
-key=f"RGAPI-5f38f23e-8434-48b7-846c-f74d3f45e861"
+key = os.getenv('key')
 summoner_name="Drosai"
 
 try:
