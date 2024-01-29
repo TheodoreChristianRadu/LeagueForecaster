@@ -6,9 +6,8 @@ from urllib.parse import quote
 from time import sleep
 
 key = os.getenv('key')
-key = f"RGAPI-e5c4e2fc-d0ae-47d0-bfd8-c57250fc3f13"
 
-def get_match(matchId, max_retries=3, retry_delay=5):
+def get_match(matchId, max_retries=2, retry_delay=1):
     
     url = f"https://europe.api.riotgames.com/lol/match/v5/matches/{matchId}?api_key={key}"
 
@@ -17,9 +16,7 @@ def get_match(matchId, max_retries=3, retry_delay=5):
             response = requests.get(url)
             response.raise_for_status()  # Gérer les erreurs HTTP
             unfilteredMatch= response.json()['info']
-            blacklist=["puuid","riotIdGameName","riotIdTagline","summonerId","summonerName"]
             filteredMatch = {key: value for key, value in unfilteredMatch.items() if key in ['gameDuration', 'participants']}
-            filteredMatch['participants'] = [{key: value for key, value in participant.items() if key not in blacklist} for participant in filteredMatch['participants']]
             return filteredMatch
         except requests.RequestException as e:
             print(f"Erreur lors de la requête pour {matchId}: {e}")
@@ -83,12 +80,12 @@ def process_csv(input_file, output_file, log_file, progress_interval=5):
         print("Toutes les requêtes ont été traitées avec succès.")
 
 if __name__ == "__main__":
-    input_csv_path = 'historicList1.csv'
+    input_csv_path = 'historicList.csv'
     output_csv_path = 'matchList.json'
     log_file_path = 'executionMatch_log.txt'
 
     try:
-        print("Début du traitement...")
+        print(f"Début du traitement de {input_csv_path}")
         process_csv(input_csv_path, output_csv_path, log_file_path)
     except Exception as e:
         print(f"Une erreur s'est produite : {e}")
