@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="eng">
+
+<head>
+    <meta charset="utf-8">
+    <title>Accueil</title>
+    <link href="/static/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            LOGO
+        </div>
+    </header>
+
+    <main>
+        <form class="form" method="post" action="/process_form">
+
+            <input class="form__input" placeholder="Username" type="text" id="username" name="username" required>
+            <label class="form__label" for="username">Username</label>
+
+            <input class="form__input" placeholder="Tagline" type="text" id="tagline" name="tagline" required>
+            <label class="form__label" for="password">Tagline<label>
+
+            <button class= "button" type="submit">
+                <div class='lienNav'>{{predict}}</div>
+            </button>
+        </form>
+
+        <div>
+            % if boule:
+                <br>
+                <span>{{result}}</span>
+            % end
+           </div>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>
