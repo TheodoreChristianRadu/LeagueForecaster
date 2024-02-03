@@ -14,13 +14,13 @@ def Scrapping(summoner_name):
         response.raise_for_status()  # Gérer les erreurs HTTP
         data = response.json()
         puuid = data.get("puuid", None)
-        print(puuid)
+        print(1)
 
         url2 = f"https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids?queue=420&start=0&count=50&api_key={key}"
         response = requests.get(url2)
         response.raise_for_status()  # Gérer les erreurs HTTP
         historicList= response.json()
-        print(historicList)
+        print(2)
 
         matchList = []
         for i in historicList:
@@ -30,7 +30,7 @@ def Scrapping(summoner_name):
             unfilteredMatch= response.json()['info']
             filteredMatch = {key: value for key, value in unfilteredMatch.items() if key in ['gameDuration', 'participants']}
             matchList.append(filteredMatch)
-        print(matchList[0])
+        print(3)
 
     except requests.RequestException as e:
         print(f"Erreur lors de la requête pour {summoner_name}: {e}")

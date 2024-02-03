@@ -24,18 +24,23 @@
             <input class="form__input" placeholder="Username" type="text" id="username" name="username" required>
             <label class="form__label" for="username">Username</label>
 
-            <input class="form__input" placeholder="Tagline" type="text" id="tagline" name="tagline" required>
-            <label class="form__label" for="password">Tagline<label>
-
             <button class= "button" type="submit">
-                <div class='lienNav'>{{predict}}</div>
+                <div>Predict</div>
             </button>
         </form>
 
         <div>
             % if boule:
-                <br>
-                <span>{{result}}</span>
+                <table>
+                    <tr>
+                        <td>Result :</td>
+                        <td>{{result}}</td>
+                    </tr>
+                    <tr>
+                        <td>KDA :</td>
+                        <td>{{kda}}</td>
+                    </tr>
+                </table>
             % end
            </div>
     </main>

@@ -8,9 +8,7 @@ file = open("index.html","r",encoding="utf-8").read()
 
 @route('/') 
 def index(): 
-    name="michel"
-    bill=False
-    return template(file, predict=name, boule=bill, result="") 
+    return template(file, boule=False, result="", kda="") 
   
 @route('/static/<filename:path>')
 def serve_static(filename):
@@ -20,15 +18,24 @@ def serve_static(filename):
 def process_form():
     # Access form data from POST request
     username = request.forms.get('username')
-    tagline = request.forms.get('tagline')
 
+    scrapped = Scrapping(username)[0] #pour ne recuperer qu'une seule game
+
+    #inserer fonction de prediction
+
+    #recuperer la game de la bonne personne
+    #for i in range(0,len(scrapped)):
+    #    if scrapped[i]
+    game=scrapped['participants'][0]
+
+    if game['win'] == True:
+        result="Win"
+    else:
+        result="Loose"
     
+    kda = str(game['kills']) + ' / ' + str(game['deaths']) + ' / ' + str(game['assists'])
 
-    result = Scrapping(username)[0]
-
-    # Return the result
-    print(file)
-    return template(file, result=result, boule=True,predict="ta mere")
+    return template(file, boule=True, result=result,kda=kda)
 
 run(host='localhost', port=8000,debug=True) 
 
