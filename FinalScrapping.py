@@ -31,11 +31,14 @@ def Scrapping(summoner_name):
             filteredMatch = {key: value for key, value in unfilteredMatch.items() if key in ['gameDuration', 'participants']}
             matchList.append(filteredMatch)
         print(3)
+        return matchList
 
     except requests.RequestException as e:
         print(f"Erreur lors de la requête pour {summoner_name}: {e}")
+        return "error"
     except Exception as e:
         print("An error occurred:", e)
+        return "error"
     
-    return matchList
+    
 

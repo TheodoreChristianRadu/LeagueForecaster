@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="eng">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -14,23 +14,26 @@
 <body>
     <header>
         <div class="logo">
-            LOGO
+            <img src="/static/LeagueForecaster.png" alt="Logo">
         </div>
     </header>
 
     <main>
-        <form class="form" method="post" action="/process_form">
 
-            <input class="form__input" placeholder="Username" type="text" id="username" name="username" required>
-            <label class="form__label" for="username">Username</label>
+        <form class="container" method="post" action="/process_form">
 
-            <button class= "button" type="submit">
-                <div>Predict</div>
-            </button>
+            <div class="space">
+                <input class="form__input" placeholder="Username" type="text" id="username" name="username" {{input}} required>
+                <label class="form__label" for="username">Username</label>
+            </div>
+                    
+            <div class="space">
+                <button class= "button" type="submit">Predict</button>
+            </div>
         </form>
 
         <div>
-            % if boule:
+            % if boule==3:
                 <table>
                     <tr>
                         <td>Result :</td>
@@ -41,6 +44,12 @@
                         <td>{{kda}}</td>
                     </tr>
                 </table>
+            % elif boule == 2:
+                <div>ERROR</div>
+            %elif boule == 1:
+                <div></div>
+            %else:
+            <div>Error</div>
             % end
            </div>
     </main>
